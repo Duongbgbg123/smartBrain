@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Duongbgbg123/smartBrain/static/css/main.b0b99bc6.css",
+    "main.js": "/Duongbgbg123/smartBrain/static/js/main.5629e024.js",
+    "index.html": "/Duongbgbg123/smartBrain/index.html",
+    "main.b0b99bc6.css.map": "/Duongbgbg123/smartBrain/static/css/main.b0b99bc6.css.map",
+    "main.5629e024.js.map": "/Duongbgbg123/smartBrain/static/js/main.5629e024.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b0b99bc6.css",
+    "static/js/main.5629e024.js"
+  ]
+}
