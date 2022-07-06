@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Signin.css';
 class Signin extends React.Component {
   constructor(props) {
     super(props);
@@ -17,8 +17,12 @@ class Signin extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
+  saveAuthTokenInSessions = (token) => {
+    window.sessionStorage.setItem('token', token);
+  };
+
   onSubmitSignIn = () => {
-    fetch('https://fast-earth-94488.herokuapp.com/signin', {
+    fetch('http://localhost:3000/signin', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -27,10 +31,10 @@ class Signin extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then((user) => {
-        // console.log(user);
-        if (user.id) {
-          this.props.loadUser(user);
+      .then((data) => {
+        if (data && data.success === 'true') {
+          this.saveAuthTokenInSessions(data.token);
+          this.props.loadUser(data.user);
           this.props.onRouteChange('home');
         }
       });
@@ -45,11 +49,11 @@ class Signin extends React.Component {
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Sign In</legend>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">
+                <label className="db fw6 lh-copy f6 " htmlFor="email-address">
                   Email
                 </label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 background-hover"
                   type="email"
                   name="email-address"
                   id="email-address"
@@ -57,11 +61,11 @@ class Signin extends React.Component {
                 />
               </div>
               <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">
+                <label className="db fw6 lh-copy f6 " htmlFor="password">
                   Password
                 </label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 background-hover"
                   type="password"
                   name="password"
                   id="password"

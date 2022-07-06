@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Register.css';
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -22,8 +22,12 @@ class Register extends React.Component {
     this.setState({ password: event.target.value });
   };
 
+  saveAuthTokenInSessions = (token) => {
+    window.sessionStorage.setItem('token', token);
+  };
+
   onSubmitSignIn = () => {
-    fetch('https://fast-earth-94488.herokuapp.com/register', {
+    fetch('http://localhost:3000/register', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -33,9 +37,10 @@ class Register extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then((user) => {
-        if (user.id) {
-          this.props.loadUser(user);
+      .then((data) => {
+        if (data && data.success === 'true') {
+          this.saveAuthTokenInSessions(data.token);
+          this.props.loadUser(data.user);
           this.props.onRouteChange('home');
         }
       });
@@ -49,7 +54,10 @@ class Register extends React.Component {
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="name">
+                <label
+                  className="db fw6 lh-copy f6 background-hover"
+                  htmlFor="name"
+                >
                   Name
                 </label>
                 <input
@@ -61,7 +69,10 @@ class Register extends React.Component {
                 />
               </div>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">
+                <label
+                  className="db fw6 lh-copy f6 background-hover"
+                  htmlFor="email-address"
+                >
                   Email
                 </label>
                 <input
@@ -73,7 +84,10 @@ class Register extends React.Component {
                 />
               </div>
               <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">
+                <label
+                  className="db fw6 lh-copy f6 background-hover"
+                  htmlFor="password"
+                >
                   Password
                 </label>
                 <input
